@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: office-deployment
+  namespace: office-namespace
+spec:
+  type: LoadBalancer
+  selector:
+    app: office-deployment
+  ports:
+    - port: 10443
+      targetPort: 10443

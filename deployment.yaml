@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: office-deployment
+  namespace: office-namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: office-deployment
+  template:
+    metadata:
+      labels:
+        app: office-deployment
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:alpine
+          ports:
+            - containerPort: 10443
+          volumeMounts:
+            - name: config
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+              readOnly: true
+            - name: secret
+              mountPath: /secret
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: office-config
+        - name: secret
+          secret:
+            secretName: office-secret

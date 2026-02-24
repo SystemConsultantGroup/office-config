@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: office-config
+  namespace: office-namespace
+data:
+  nginx.conf: |
+    events {
+      worker_connections 1024;
+    }
+    http {
+      server {
+        listen 10443 ssl;
+        server_name office-namespace.scg.sh;
+        ssl_certificate /secret/tls.crt;
+        ssl_certificate_key /secret/tls.key;
+        location / {
+          return 200;
+        }
+      }
+    }
