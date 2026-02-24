@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: office-deployment
-  namespace: office-namespace
+  namespace: office
 spec:
   replicas: 1
   selector:
